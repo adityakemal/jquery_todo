@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>todolist</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <style media="screen">
+    .checked{
+        text-decoration: line-through;
+      }
+    </style>
+</head>
+
+<body>
+
+  <h1>todo</h1>
+  <input type="text" name="" value="" id="input-list">
+  <button name="button" id="add">add</button>
+  <h1>list</h1>
+  <ul>
+
+  </ul>
+
+</body>
+
+<script>
+  function ch(val) {
+    if ($(`#${val}`).hasClass("checked")) {
+      $(`#${val}`).removeClass('checked')
+    } else {
+      $(`#${val}`).addClass("checked")
+    }
+    console.log(val);
+  }
+  // hapus
+  function hapus(oke) {
+    $(`#${oke}`).remove()
+  }
+  // edit
+  function edit(oke) {
+    let ed = prompt(`rubah "${oke}" menjadi:`)
+    console.log(ed);
+    $(`#${oke}`).replaceWith(`<li id="${ed}">
+          ${ed}
+          <button id="${ed}" onclick="edit(this.id)">edit</button>
+          <button  id="${ed}" onclick="hapus(this.id)">remove</button></li>`)
+  }
+
+  //tambah
+  $("#add").click(function() {
+    let isi = $("#input-list").val()
+
+    $('ul').append(
+      `<li id="${isi}" onclick="ch(this.id)" >
+          ${isi}
+          <button id="${isi}" onclick="edit(this.id)">edit</button>
+          <button  id="${isi}" onclick="hapus(this.id)">remove</button>
+        </li>`);
+    $("#input-list").val('')
+  });
+</script>
+
+</html>

@@ -6,8 +6,13 @@
   <title>todolist</title>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <style media="screen">
+    li{
+      cursor: pointer;
+
+    }
     .checked{
         text-decoration: line-through;
+        cursor: pointer;
       }
     </style>
 </head>
@@ -16,7 +21,7 @@
 
   <h1>todo</h1>
   <form>
-    <input type="text" name="" value="" id="input-list" required>
+    <input type="text" name="" value="" id="input-list">
     <input type="submit" value="add" id="add">
   </form>
 
@@ -44,7 +49,8 @@
   function edit(oke) {
     let ed = prompt(`rubah "${oke}" menjadi:`)
     console.log(ed);
-    $(`#${oke}`).replaceWith(`<li id="${ed}">
+    $(`#${oke}`).replaceWith(
+      `<li id="${ed}" onclick="ch(this.id)">
           ${ed}
           <button id="${ed}" onclick="edit(this.id)">edit</button>
           <button  id="${ed}" onclick="hapus(this.id)">remove</button></li>`)

@@ -10,22 +10,34 @@
       cursor: pointer;
 
     }
-    .checked{
+    .checked span{
         text-decoration: line-through;
         cursor: pointer;
+        color: red;
+      }
+      .ce{
+        width: 400px;
+        border: 1px solid pink;
+        color: maroon
+      }
+      #input-list{
+        width: 400px;
+        font-size: 2em;
       }
     </style>
 </head>
 
 <body>
-
-  <h1>todo</h1>
+  <h5>Title:</h5>
+<h1><p contenteditable class="ce"></p></h1>
+  <h1>todo:</h1>
   <!-- <form> -->
-    <input type="text" name="" value="" id="input-list">
-    <input type="submit" value="add" id="add">
+
+    <input type="text" onkeyup="validate()"  id="input-list">
+    <!-- <input type="submit" value="add" id="add"> -->
   <!-- </form> -->
 
-  <h1>list</h1>
+  <h1>list:</h1>
   <ul>
 
   </ul>
@@ -33,6 +45,14 @@
 </body>
 
 <script>
+//artinya replace(/[^A-Za-z0-9]/g, '') mereplace selain dari yg ada di dlam array [^A-Za-z0-9]
+//adapun g menandakan global/pd setiap char yg ada di id tersebut akan d replace adapun defaultnya replace(//g,"")
+// onkeyup="" di class input-list maksudnya adalah exsekusi setiap ketikan keyboard di field itu sendiri
+function validate() {
+  var v = document.getElementById('input-list')
+     v.value=v.value.replace(/[^A-Za-z0-9]/g, '')
+}
+//add class to strike list
   function ch(val) {
     if ($(`#${val}`).hasClass("checked")) {
       $(`#${val}`).removeClass('checked')
@@ -51,24 +71,28 @@
     console.log(ed);
     $(`#${oke}`).replaceWith(
       `<li id="${ed}" onclick="ch(this.id)">
-          ${ed}
+      <span>${isi}</span>
           <button id="${ed}" onclick="edit(this.id)">edit</button>
           <button  id="${ed}" onclick="hapus(this.id)">remove</button></li>`)
   }
 
   //tambah
-  $("#add").click(function() {
-    let isi = $("#input-list").val()
-    isi === "" ? alert('isi goblok!') :
-    $('ul').append(
-      `<li id="${isi}" onclick="ch(this.id)" >
-          ${isi}
-          <button id="${isi}" onclick="edit(this.id)">edit</button>
-          <button  id="${isi}" onclick="hapus(this.id)">remove</button>
-        </li>`);
-    $("#input-list").val('')
+  $("#input-list").keypress((e)=> {
+    if (e.which == 13) {
+      let isi = $("#input-list").val()
+      isi === "" ? alert('isi goblok!') :
+      $('ul').append(
+        `<li id="${isi}" onclick="ch(this.id)" >
+            <span>${isi}</span>
+            <button id="${isi}" onclick="edit(this.id)">edit</button>
+            <button  id="${isi}" onclick="hapus(this.id)">remove</button>
+          </li>`);
+      $("#input-list").val('')
+    }
+
   });
 
 </script>
+<p></p>
 
 </html>
